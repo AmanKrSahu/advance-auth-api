@@ -1,11 +1,12 @@
 import "dotenv/config";
 import cors from "cors";
-import express, { NextFunction, Request, Response } from "express";
 import cookieParser from "cookie-parser";
+import express, { NextFunction, Request, Response } from "express";
 
 import { config } from "./config/app.config";
 import connectDatabase from "./database/database";
 import { HTTPSTATUS } from "./config/http.config";
+import passport from "./middlewares/passport.middleware";
 import { asyncHandler } from "./middlewares/asyncHandler.middleware";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 
@@ -22,6 +23,7 @@ app.use(
 );
 
 app.use(cookieParser());
+app.use(passport.initialize());
 
 app.get(
   "/",
