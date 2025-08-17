@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import express, { NextFunction, Request, Response } from "express";
 
 import { config } from "./config/app.config";
+import mfaRoutes from "./modules/mfa/mfa.routes";
 import connectDatabase from "./database/database";
 import { HTTPSTATUS } from "./config/http.config";
 import authRoutes from "./modules/auth/auth.routes";
@@ -40,6 +41,7 @@ app.get(
 
 app.use(`${BASE_PATH}/auth`, authRoutes);
 app.use(`${BASE_PATH}/session`, authenticateJWT, sessionRoutes);
+app.use(`${BASE_PATH}/mfa`, mfaRoutes);
 
 app.use(errorHandler);
 
