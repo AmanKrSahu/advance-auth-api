@@ -6,11 +6,13 @@ import express, { NextFunction, Request, Response } from "express";
 import { config } from "./config/app.config";
 import connectDatabase from "./database/database";
 import { HTTPSTATUS } from "./config/http.config";
+import authRoutes from "./modules/auth/auth.routes";
 import passport from "./middlewares/passport.middleware";
 import { asyncHandler } from "./middlewares/asyncHandler.middleware";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 
 const app = express();
+const BASE_PATH = config.BASE_PATH;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -33,6 +35,8 @@ app.get(
     });
   })
 );
+
+app.use(`${BASE_PATH}/auth`, authRoutes);
 
 app.use(errorHandler);
 
