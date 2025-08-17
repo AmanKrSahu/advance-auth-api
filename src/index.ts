@@ -8,6 +8,8 @@ import connectDatabase from "./database/database";
 import { HTTPSTATUS } from "./config/http.config";
 import authRoutes from "./modules/auth/auth.routes";
 import passport from "./middlewares/passport.middleware";
+import sessionRoutes from "./modules/session/session.routes";
+import { authenticateJWT } from "./common/strategies/jwt.strategy";
 import { asyncHandler } from "./middlewares/asyncHandler.middleware";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 
@@ -37,6 +39,7 @@ app.get(
 );
 
 app.use(`${BASE_PATH}/auth`, authRoutes);
+app.use(`${BASE_PATH}/session`, authenticateJWT, sessionRoutes);
 
 app.use(errorHandler);
 
